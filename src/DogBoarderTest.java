@@ -5,12 +5,12 @@ public class DogBoarderTest {
     public static void main(String[] args) {
         testInitialState();
         testBoardDog();
-//        testBoardDogWhenFull();
-//        testPickUpDogPart1();
-//        testPickUpDogPart2();
-//        testPickUpDogThatDoesNotExist();
-//        testPickUpFromEmptyBoard();
-//        testSlotsOccupied();
+        testBoardDogWhenFull();
+        testPickUpDogPart1();
+        testPickUpDogPart2();
+        testPickUpDogThatDoesNotExist();
+        testPickUpFromEmptyBoard();
+        testSlotsOccupied();
 
         if (testsFailed > 0) {
             throw new AssertionError(testsFailed + " tests failed out of " + testsRun);
@@ -56,6 +56,7 @@ public class DogBoarderTest {
         DogBoarder boarder = new DogBoarder();
         boarder.board("Rex", "German Shepherd", "Charlie");
         String response = boarder.pick_up("Rex", "German Shepherd", "Charlie", 3);
+        System.out.println(response);
         assertTrue(response.equals("You owe $10.50."), "Cost should be calculated correctly for pick-up");
         assertTrue(boarder.slots_occupied() == 0, "Slots occupied should be 0 after pick-up");
     }

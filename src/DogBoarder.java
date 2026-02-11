@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.text.DecimalFormat;
 
 public class DogBoarder {
 
@@ -15,13 +16,6 @@ public class DogBoarder {
     int slots_occupied = 0;
 
     public void main(String[] args) {
-
-        // Testing the 'board' function.
-        board("John", "Golden Retriever", "Bob");
-        System.out.println("Slots: " + slots_occupied());
-
-        board("Another", "Labrador", "Max");
-        System.out.println("Slots: " + slots_occupied());
     }
 
     public ArrayList<Dictionary<String, String>> all_dogs() {return dogs;}
@@ -41,21 +35,28 @@ public class DogBoarder {
             boarded_dogs.put("name", name);
 
             dogs.add(boarded_dogs);
-            System.out.println(dogs);
             return dog + " has been boarded";
         }
         return "Error: No available slots.";
     }
 
     public String pick_up(String dog, String breed, String name, int days) {
-        double price = days * daily_rate;
-        for (int i = 0; i < dogs.size(); i++) {
-            if (dogs.get(i).get("dog") == dog) {
-                dogs.remove(i);
-                slots_occupied--;
-                return "You owe $" + price + ".";
+        DecimalFormat df = new DecimalFormat("0.00");
+        if (dogs.size() > 0){
+            double pre_price = days * daily_rate;
+            String price = df.format(pre_price);
+            for (int i = 0; i < dogs.size(); i++) {
+                if (dogs.get(i).get("dog") == dog) {
+                    dogs.remove(i);
+                    slots_occupied--;
+                    return "You owe $" + price + ".";
+                }
             }
         }
+        else {
+            return "No dogs are currently boarded.";
+        }
+
         return "Error: Dog not found.";
     }
 
